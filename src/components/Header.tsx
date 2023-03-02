@@ -1,19 +1,22 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {Icon} from './Icon';
+import { View, Text, StyleSheet } from 'react-native';
+import { DrawerActions } from '@react-navigation/native';
+import { DrawerHeaderProps } from '@react-navigation/drawer';
 
-type Props = {
-  title: string;
-};
+import { IconButton } from './IconButton';
 
-export const Header = ({title}: Props) => {
+export const Header: React.FC<DrawerHeaderProps> = ({
+  layout,
+  navigation,
+  options,
+  route,
+}) => {
+  const openDrawer = () => navigation.dispatch(DrawerActions.openDrawer());
+
   return (
     <View style={styles.header}>
-      <View style={styles.container}>
-        <Icon name="menu" />
-        <Text style={styles.title}>{title}</Text>
-      </View>
-      <Icon name="settings" />
+      <IconButton icon="menu" onPress={openDrawer} />
+      <Text style={styles.title}>{options.title}</Text>
     </View>
   );
 };
@@ -21,18 +24,15 @@ export const Header = ({title}: Props) => {
 const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
-    paddingHorizontal: 24,
-    height: 80,
     alignItems: 'center',
-  },
-  container: {
-    flexDirection: 'row',
-    flex: 1,
-    alignItems: 'center',
-    gap: 16,
+    gap: 12,
+    paddingVertical: 16,
+    paddingHorizontal: 12,
+    backgroundColor: '#ffffff',
   },
   title: {
-    fontSize: 21,
+    fontSize: 20,
+    color: '#000000',
     fontWeight: 'bold',
   },
 });
